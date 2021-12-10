@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
  var express = require("express");
  
  //use the application off of express.
@@ -46,7 +46,7 @@ app.post('/webhook', (req, res) => {
 app.get('/webhook', (req, res) => {
 
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+  let VERIFY_TOKEN = "EAADVtcttboEBAHdhItk1cZAK0oMSPKR3FeOZCSqkJCK7lyL24JVZBntUIrRd8nDIJJ4qOhwVNpK8AJL8lKccBZC7XUaOzv0bgyOkthcQKtZCxh5yNGDUSBrKU21XxOZCMrV3ZCn4Co766ZA5aTqd9nCNZA370YJCWElT6MPAFmHIEqxfZCxqL7gQZA2";
     
   // Parse the query params
   let mode = req.query['hub.mode'];
