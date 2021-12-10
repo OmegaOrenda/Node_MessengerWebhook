@@ -11,6 +11,6 @@
  });
  
  //start the server
- app.listen(8080);
+ app.listen(process.env.PORT || 8080);
  
  console.log("Something awesome to happen at http://localhost:8080");
