@@ -7,7 +7,7 @@
  //define the route for "/"
  app.get("/", function (request, response){
      //show this file when the "/" is requested
-     response.sendFile(__dirname+"/views/index.ejs");
+     response.sendFile(__dirname+"/views/index.html");
  });
  
  //start the server
