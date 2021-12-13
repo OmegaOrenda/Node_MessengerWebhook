@@ -1,5 +1,4 @@
 //require('dotenv').config();
-var request = require("request");
  var express = require("express");
  
  //use the application off of express.
@@ -31,18 +30,9 @@ app.post('/webhook', (req, res) => {
   let webhook_event = entry.messaging[0];
   console.log(webhook_event);
 
-
   // Get the sender PSID
   let sender_psid = webhook_event.sender.id;
   console.log('Sender PSID: ' + sender_psid);
-
-  // Check if the event is a message or postback and
-  // pass the event to the appropriate handler function
-  if (webhook_event.message) {
-    handleMessage(sender_psid, webhook_event.message);        
-  } else if (webhook_event.postback) {
-    handlePostback(sender_psid, webhook_event.postback);
-  }
     });
 
     // Returns a '200 OK' response to all requests
@@ -54,56 +44,6 @@ app.post('/webhook', (req, res) => {
 
 });
 
-// Handles messages events
-function handleMessage(sender_psid, received_message) {
-
-  let response;
-
-  // Check if the message contains text
-  if (received_message.text) {    
-
-    // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
-  }  
-  
-  // Sends the response message
-  callSendAPI(sender_psid, response);  
-
-}
-
-// Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
-
-}
-
-// Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {
-
-  // Construct the message body
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }
-
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAADVtcttboEBAHdhItk1cZAK0oMSPKR3FeOZCSqkJCK7lyL24JVZBntUIrRd8nDIJJ4qOhwVNpK8AJL8lKccBZC7XUaOzv0bgyOkthcQKtZCxh5yNGDUSBrKU21XxOZCMrV3ZCn4Co766ZA5aTqd9nCNZA370YJCWElT6MPAFmHIEqxfZCxqL7gQZA2" },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
-  
-}
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
