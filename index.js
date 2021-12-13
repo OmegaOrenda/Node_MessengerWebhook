@@ -1,5 +1,5 @@
 //require('dotenv').config();
-import request from "request";
+var request = require("request");
  var express = require("express");
  
  //use the application off of express.
