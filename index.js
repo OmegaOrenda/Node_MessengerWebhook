@@ -91,12 +91,11 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-  console.log("8####################"+process.env.FACEBOOK_PAGE_ACCESS_TOKEN);
 
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": process.env.FACEBOOK_PAGE_ACCESS_TOKEN },
+    "qs": { "access_token": "EAADVtcttboEBAHdhItk1cZAK0oMSPKR3FeOZCSqkJCK7lyL24JVZBntUIrRd8nDIJJ4qOhwVNpK8AJL8lKccBZC7XUaOzv0bgyOkthcQKtZCxh5yNGDUSBrKU21XxOZCMrV3ZCn4Co766ZA5aTqd9nCNZA370YJCWElT6MPAFmHIEqxfZCxqL7gQZA2" },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
