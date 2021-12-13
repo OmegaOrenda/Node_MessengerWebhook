@@ -91,6 +91,7 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
+  console.log("8####################"+process.env.FACEBOOK_PAGE_ACCESS_TOKEN);
 
   // Send the HTTP request to the Messenger Platform
   request({
