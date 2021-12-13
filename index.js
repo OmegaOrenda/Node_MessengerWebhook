@@ -1,6 +1,7 @@
 //require('dotenv').config();
  var express = require("express");
  const bodyParser= require('body-parser');
+ var jsonParser= bodyParser.json();
  
  //use the application off of express.
  var app = express();
@@ -10,14 +11,17 @@
      //show this file when the "/" is requested
      response.sendFile(__dirname+"/views/index.html");
  });
+
  
  //start the server
  app.listen(process.env.PORT || 8080);
  
  console.log("Something awesome to happen AT http://localhost:8080");
 
+
+
  // Creates the endpoint for our webhook 
-app.post('/webhook', (req, res) => {  
+app.post('/webhook', jsonParser,(req, res) => {  
  
   let body = req.body;
 console.log('*********************'+body);
