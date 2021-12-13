@@ -24,7 +24,6 @@
 app.post('/webhook', jsonParser,(req, res) => {  
  
   let body = req.body;
-console.log('*********************'+body);
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
 
@@ -49,6 +48,56 @@ console.log('*********************'+body);
 
 });
 
+// Handles messages events
+function handleMessage(sender_psid, received_message) {
+
+  let response;
+
+  // Check if the message contains text
+  if (received_message.text) {    
+
+    // Create the payload for a basic text message
+    response = {
+      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+    }
+  }  
+  
+  // Sends the response message
+  callSendAPI(sender_psid, response);  
+
+}
+
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+
+}
+
+// Sends response messages via the Send API
+function callSendAPI(sender_psid, response) {
+
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": "EAADVtcttboEBAHdhItk1cZAK0oMSPKR3FeOZCSqkJCK7lyL24JVZBntUIrRd8nDIJJ4qOhwVNpK8AJL8lKccBZC7XUaOzv0bgyOkthcQKtZCxh5yNGDUSBrKU21XxOZCMrV3ZCn4Co766ZA5aTqd9nCNZA370YJCWElT6MPAFmHIEqxfZCxqL7gQZA2" },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
+    }
+  }); 
+  
+}
 
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
