@@ -65,7 +65,6 @@ function handleMessage(sender_psid, received_message) {
 
   // Check if the message contains text
   if (received_message.text) {    
-    console.log("****************************"+received_message.text);
     // Create the payload for a basic text message
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an image!`
@@ -94,9 +93,9 @@ function callSendAPI(sender_psid, response) {
   }
 
   // Send the HTTP request to the Messenger Platform
-  request.request({
+  request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAADVtcttboEBAHdhItk1cZAK0oMSPKR3FeOZCSqkJCK7lyL24JVZBntUIrRd8nDIJJ4qOhwVNpK8AJL8lKccBZC7XUaOzv0bgyOkthcQKtZCxh5yNGDUSBrKU21XxOZCMrV3ZCn4Co766ZA5aTqd9nCNZA370YJCWElT6MPAFmHIEqxfZCxqL7gQZA2" },
+    "qs": { "access_token": process.env.FACEBOOK_PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
