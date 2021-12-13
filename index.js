@@ -65,7 +65,7 @@ function handleMessage(sender_psid, received_message) {
 
   // Check if the message contains text
   if (received_message.text) {    
-console.log('**************************************');
+
     // Create the payload for a basic text message
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an image!`
@@ -92,7 +92,7 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-
+console.log('**************************************');
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
